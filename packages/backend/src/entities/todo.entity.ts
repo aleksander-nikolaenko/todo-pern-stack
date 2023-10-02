@@ -13,4 +13,7 @@ export class Todo extends BaseEntity {
 
   @Column({ default: false })
   isCompleted: boolean;
+
+  @Column({ default: false })
+  isPrivate: boolean;
 }

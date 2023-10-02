@@ -1,5 +1,7 @@
 import React from 'react';
 
-const HomePageContainer = () => <div>React is ready HOME</div>;
+import { HomePageComponent } from './home-page';
+
+const HomePageContainer = () => <HomePageComponent />;
 
 export default HomePageContainer;

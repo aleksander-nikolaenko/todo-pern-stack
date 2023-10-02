@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import joi from 'joi';
 
 export const createTodoSchema = joi.object({
@@ -11,13 +10,17 @@ export const createTodoSchema = joi.object({
     'any.required': 'Title is a required field'
   }),
   // eslint-disable-next-line newline-per-chained-call
-  description: joi.string().min(3).max(1500).messages({
+  description: joi.string().allow('').min(3).max(1500).messages({
     'string.pattern.base': 'Wrong parameter',
     'string.base': 'Should be a type of "string"',
     'string.max': 'Description to long',
     'string.min': 'Description to short'
   }),
   isCompleted: joi.boolean().messages({
+    'boolean.pattern.base': 'Wrong parameter',
+    'boolean.base': 'Should be a type of "boolean"'
+  }),
+  isPrivate: joi.boolean().messages({
     'boolean.pattern.base': 'Wrong parameter',
     'boolean.base': 'Should be a type of "boolean"'
   })
@@ -42,9 +45,13 @@ export const updateTodoSchema = joi
     isCompleted: joi.boolean().messages({
       'boolean.pattern.base': 'Wrong parameter',
       'boolean.base': 'Should be a type of "boolean"'
+    }),
+    isPrivate: joi.boolean().messages({
+      'boolean.pattern.base': 'Wrong parameter',
+      'boolean.base': 'Should be a type of "boolean"'
     })
   })
-  .or('title', 'description', 'isCompleted')
+  .or('title', 'description', 'isCompleted', 'isPrivate')
   .messages({
     'object.missing':
       'Request body must contain at least one of properties [title, description, isCompleted]'

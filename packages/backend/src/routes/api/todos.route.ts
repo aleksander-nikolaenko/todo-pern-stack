@@ -34,7 +34,7 @@ todosRouter.post(
   tryCatchWrapper(todoController.createTodo.bind(todoController))
 );
 
-// @route   GET api/todos/:id
+// @route   DELETE api/todos/:id
 // @desc    Delete todo by id
 // @access  Public
 todosRouter.delete(
@@ -44,7 +44,7 @@ todosRouter.delete(
   tryCatchWrapper(todoController.deleteTodoById.bind(todoController))
 );
 
-// @route   PUT api/todos
+// @route   PATCH api/todos/:id
 // @desc    Update todo by id
 // @access  Public
 todosRouter.patch(

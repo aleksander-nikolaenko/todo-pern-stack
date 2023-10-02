@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import joi, { ObjectSchema } from 'joi';
-
 import HttpException from '../exceptions/http.exception';
 
 type RequestPart = 'body' | 'params' | 'query' | undefined;
