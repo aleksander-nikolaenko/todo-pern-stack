@@ -1,13 +1,15 @@
 import { Response, Request } from 'express';
+import { User } from '../entities/user.entity';
+import { Todo } from '../entities/todo.entity';
 import TodoService from '../services/todo.service';
 import HttpException from '../exceptions/http.exception';
-import { CreateTodoDto } from '../dto/create-todo.dto';
 
 export class TodoController {
   constructor(private todoService: TodoService) {}
 
-  async getAllTodo(_: Request, res: Response) {
-    const todos = await this.todoService.getAllTodos();
+  async getAllTodo(req: Request, res: Response) {
+    const user = req.user as Pick<User, 'id' | 'email'>;
+    const todos = await this.todoService.getAllTodos(user.id);
     res.send(todos);
   }
 
@@ -21,8 +23,9 @@ export class TodoController {
   }
 
   async createTodo(req: Request, res: Response) {
-    const dto: CreateTodoDto = req.body;
-    const todo = await this.todoService.createTodo(dto);
+    const user = req.user as Pick<User, 'id' | 'email'>;
+    const dto: Todo = req.body;
+    const todo = await this.todoService.createTodo(dto, user.id);
     res.status(201).send(todo);
   }
 
@@ -36,7 +39,7 @@ export class TodoController {
   }
 
   async updateTodoById(req: Request, res: Response) {
-    const dto: CreateTodoDto = req.body;
+    const dto: Todo = req.body;
     const { id } = req.params;
     const todo = await this.todoService.updateTodoById(id, dto);
     res.send(todo);

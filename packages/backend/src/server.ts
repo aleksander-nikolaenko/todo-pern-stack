@@ -1,10 +1,12 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import cors from 'cors';
+import passport from 'passport';
 import 'dotenv/config';
 
 import AppRouter from './routes';
 import connectDB from './config/database';
+import { passportJwt } from './config/passport';
 import errorHandler from './middlewares/error-handler.middleware';
 
 const app = express();
@@ -17,6 +19,9 @@ app.set('port', process.env.PORT || 4200);
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+passportJwt(passport);
+app.use(passport.initialize());
 
 router.init();
 

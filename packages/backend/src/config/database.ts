@@ -2,6 +2,7 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { Todo } from '../entities/todo.entity';
+import { User } from '../entities/user.entity';
 
 function getSSLConfig(env: string) {
   const configs: { [key: string]: boolean | { [key: string]: boolean } } = {
@@ -20,7 +21,7 @@ export const AppDataSource = new DataSource({
   port: Number(process.env.POSTGRES_PORT),
   logging: ['query', 'error'],
   type: 'postgres',
-  entities: [Todo],
+  entities: [Todo, User],
   migrations: ['dist/migrations/**/*.{ts,js}'],
   subscribers: ['src/subscriber/**/*.ts'],
   database: process.env.POSTGRES_DB,

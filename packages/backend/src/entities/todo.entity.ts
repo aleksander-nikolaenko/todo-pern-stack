@@ -1,4 +1,6 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+/* eslint-disable import/no-cycle */
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity()
 export class Todo extends BaseEntity {
@@ -16,4 +18,7 @@ export class Todo extends BaseEntity {
 
   @Column({ default: false })
   isPrivate: boolean;
+
+  @ManyToOne(() => User, (user: User) => user.todos)
+  user: User;
 }
