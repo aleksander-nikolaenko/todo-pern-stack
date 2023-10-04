@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
-import todoService from '../services/todo.service';
-import { QUERY_KEYS } from '../modules/common/consts/app-keys.const';
-import { Todo } from '../modules/common/types/todo.types';
+import todoService from '../../services/todo.service';
+import { QUERY_KEYS } from '../../modules/common/consts/app-keys.const';
+import { Todo } from '../../modules/common/types';
 
 export const useDeleteTodo = () => {
   const queryClient = useQueryClient();

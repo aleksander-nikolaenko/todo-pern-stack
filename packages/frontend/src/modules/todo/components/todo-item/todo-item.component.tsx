@@ -1,9 +1,9 @@
 import React from 'react';
 import { TitleComponent } from '../../../common/components/title';
-import { Todo } from '../../../common/types/todo.types';
+import { TodoButtonActionsComponent } from '../todo-button-actions';
+import { Todo } from '../../../common/types';
 
 import * as Styled from './todo-item.styled';
-import { TodoButtonActionsComponent } from '../todo-button-actions';
 
 interface TodoItemProps {
   data: Todo;

@@ -29,7 +29,7 @@ userRouter.get(
   tryCatchWrapper(UserController.verifyEmail.bind(UserController))
 );
 
-// @route   GET api/user/verify/:token
+// @route   GET api/user/verify
 // @desc    Activate user account using activation link
 // @access  Public
 userRouter.post(
@@ -73,6 +73,14 @@ userRouter.patch(
   auth({ omit: false }),
   validation(changePasswordSchema),
   tryCatchWrapper(UserController.changePassword.bind(UserController))
+);
+// @route   PATCH api/auth/logout
+// @desc    Logout user
+// @access  Private
+userRouter.get(
+  '/logout',
+  auth({ omit: false }),
+  tryCatchWrapper(UserController.logout.bind(UserController))
 );
 
 export default userRouter;

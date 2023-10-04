@@ -31,8 +31,8 @@ export const CloseButton = styled.button`
   position: absolute;
   top: ${SPACES.s};
   right: ${SPACES.s};
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border: 1px solid ${COLORS.gray};
   border-radius: 50%;
   color: ${COLORS.black};
@@ -49,8 +49,8 @@ export const CloseButton = styled.button`
     width: 2px;
     height: 16px;
     background-color: ${COLORS.black};
-    top: 2px;
-    left: 8px;
+    top: 15%;
+    left: 45%;
     transform-origin: center;
   }
   &:before {

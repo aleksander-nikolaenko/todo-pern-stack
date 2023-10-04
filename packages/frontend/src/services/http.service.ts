@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { APP_KEYS } from '../modules/common/consts';
 
 class HttpService {
   private baseUrl: string | undefined;
@@ -23,7 +24,7 @@ class HttpService {
 
   private populateTokenToHeaderConfig(): Record<string, string> {
     return {
-      Authorization: localStorage.getItem('token') || ''
+      Authorization: `Bearer ${localStorage.getItem(APP_KEYS.STORAGE_KEYS.TOKEN) || ''}`
     };
   }
 

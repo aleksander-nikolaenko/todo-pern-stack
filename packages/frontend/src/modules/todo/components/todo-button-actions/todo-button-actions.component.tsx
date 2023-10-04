@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDeleteTodo, useUpdateTodo } from '../../../../hooks';
 import { ButtonComponent } from '../../../common/components/button';
 import { ButtonToggleComponent } from '../../../common/components/button-toggle';
-import { Todo } from '../../../common/types/todo.types';
 import { Modal } from '../../../common/components/modal';
+import { TodoEditFormComponent } from '../todo-forms/edit-form';
+import { Todo } from '../../../common/types';
+import { APP_KEYS } from '../../../common/consts';
 
 import * as Styled from './todo-button-actions.styled';
-import { TodoEditFormComponent } from '../todo-forms/edit-form';
 
 interface TodoButtonActionsProps {
   data: Todo;
@@ -15,7 +16,6 @@ interface TodoButtonActionsProps {
 
 export const TodoButtonActionsComponent = ({ data }: TodoButtonActionsProps) => {
   const { id, isCompleted } = data;
-  const { url } = useRouteMatch();
   const history = useHistory();
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
   const [isModalOpenEdit, setIsModalOpenEdit] = useState(false);
@@ -32,7 +32,7 @@ export const TodoButtonActionsComponent = ({ data }: TodoButtonActionsProps) => 
     setIsModalOpenEdit(false);
   };
   const handleClickView = () => {
-    history.push(`${url}/${id}`);
+    history.push(`${APP_KEYS.ROUTER_KEYS.TODO}/${id}`);
   };
   const handleClickEdit = () => {
     setIsModalOpenEdit(true);

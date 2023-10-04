@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide, SwiperClass } from 'swiper/react';
 import { EffectCoverflow, A11y } from 'swiper/modules';
 import { useLocation } from 'react-router-dom';
-import { Todo } from '../../../common/types/todo.types';
 import { TodoSlideComponent } from '../todo-slide/todo-slide.component';
+import { Todo } from '../../../common/types';
 
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';

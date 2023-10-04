@@ -16,6 +16,19 @@ export default class AuthService {
     return jwt.sign(payload, secret, { expiresIn });
   }
 
+  async currentUser(user: Pick<User, 'id' | 'email'>) {
+    const findUser = await this.userService.getUserById(user.id);
+
+    if (!findUser) throw new HttpException(404, 'Not found user');
+
+    const userData = this.userService.removePassword(findUser);
+
+    return {
+      message: 'Authentication success',
+      user: { ...userData }
+    };
+  }
+
   async register(dto: User) {
     const { email, password } = dto;
     const user = await this.userService.getUserByEmail(email);
@@ -41,12 +54,40 @@ export default class AuthService {
     };
   }
 
+  async login(dto: User) {
+    const { email, password } = dto;
+
+    const user = await this.userService.getUserByEmail(email);
+
+    if (!user || !bcrypt.compareSync(password, user.password)) {
+      throw new HttpException(400, 'Email or password is wrong');
+    }
+    if (!user.isVerified) {
+      throw new HttpException(400, 'Email not verify');
+    }
+
+    const token = this.generateJWT({ id: user.id });
+    const updateUser = await this.userService.updateUserById(user.id, {
+      ...user,
+      isAuth: true
+    });
+    if (!updateUser) {
+      throw new HttpException(500, 'Internal server error');
+    }
+    const userData = this.userService.removePassword(updateUser);
+    return {
+      message: 'Authentication success',
+      token,
+      user: { ...userData }
+    };
+  }
+
   async verifyEmail(token: string) {
     const user = await this.userService.getUserByVerificationToken(token);
 
     if (!user) throw new HttpException(400, 'Incorrect user link with token');
 
-    await this.userService.updateUserById(user.id, { ...user, isVerified: true });
+    await this.userService.updateUserById(user.id, { ...user, isAuth: true, isVerified: true });
 
     return this.generateJWT({ id: user.id });
   }
@@ -63,41 +104,6 @@ export default class AuthService {
     await emailService.sendVerifyEmail(findUser.email, findUser.verificationToken);
     return {
       message: `Verification email sent to ${findUser.email} email address`
-    };
-  }
-
-  async login(dto: User) {
-    const { email, password } = dto;
-
-    const user = await this.userService.getUserByEmail(email);
-
-    if (!user || !bcrypt.compareSync(password, user.password)) {
-      throw new HttpException(400, 'Email or password is wrong');
-    }
-    if (!user.isVerified) {
-      throw new HttpException(400, 'Email not verify');
-    }
-
-    const token = this.generateJWT({ id: user.id });
-
-    const userData = this.userService.removePassword(user);
-    return {
-      message: 'Authentication success',
-      token,
-      user: { ...userData }
-    };
-  }
-
-  async currentUser(user: Pick<User, 'id' | 'email'>) {
-    const findUser = await this.userService.getUserById(user.id);
-
-    if (!findUser) throw new HttpException(404, 'Not found user');
-
-    const userData = this.userService.removePassword(findUser);
-
-    return {
-      message: 'Authentication success',
-      user: { ...userData }
     };
   }
 
@@ -155,5 +161,20 @@ export default class AuthService {
     return {
       message: `User ${email} has successfully changed the password`
     };
+  }
+
+  async logout({ id }: Pick<User, 'id'>) {
+    const user = await this.userService.getUserById(id);
+    if (!user) {
+      throw new HttpException(404, 'User not found');
+    }
+
+    const updateUser = await this.userService.updateUserById(user.id, {
+      ...user,
+      isAuth: false
+    });
+    if (!updateUser) {
+      throw new HttpException(500, 'Internal server error');
+    }
   }
 }

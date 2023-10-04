@@ -17,7 +17,7 @@ class UserController {
     if (!token) {
       throw new HttpException(500, 'Internal Server Error');
     }
-    res.redirect(`${process.env.CLIENT_URL}/redirect?token=${token}`);
+    res.redirect(`${process.env.CLIENT_URL}/login`);
   }
 
   async resendVerifyEmail(req: Request, res: Response) {
@@ -28,6 +28,11 @@ class UserController {
   async login(req: Request, res: Response) {
     const responseData = await this.authService.login(req.body);
     res.send(responseData);
+  }
+
+  async logout(req: Request, res: Response) {
+    await this.authService.logout(req.user as Pick<User, 'id'>);
+    res.status(204).send();
   }
 
   async currentUser(req: Request, res: Response) {

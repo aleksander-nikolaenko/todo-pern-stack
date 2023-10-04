@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useUpdateTodo } from '../../../../hooks';
 import { TitleComponent } from '../../../common/components/title';
 import { APP_KEYS } from '../../../common/consts';
 import { ButtonComponent } from '../../../common/components/button';
 import { ButtonToggleComponent } from '../../../common/components/button-toggle';
-import { Todo } from '../../../common/types/todo.types';
+import { Modal } from '../../../common/components/modal';
+import { TodoEditFormComponent } from '../todo-forms/edit-form';
+import { Todo } from '../../../common/types';
 
 import * as Styled from './todo-details.styled';
-import { Modal } from '../../../common/components/modal';
-import { useUpdateTodo } from '../../../../hooks';
-import { TodoEditFormComponent } from '../todo-forms/edit-form';
 
 export const TodoDetailsComponent = ({ data }: { data: Todo }) => {
   const { id, title, description, isCompleted, isPrivate } = data;

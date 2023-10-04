@@ -1,9 +1,8 @@
 import React from 'react';
-
-import { Todo } from '../../../common/types/todo.types';
+import { TodoButtonActionsComponent } from '../todo-button-actions';
+import { Todo } from '../../../common/types';
 
 import * as Styled from './todo-table.styled';
-import { TodoButtonActionsComponent } from '../todo-button-actions';
 
 export const TodoTableComponent = ({ data }: { data: Todo[] }) => (
   <Styled.Table>

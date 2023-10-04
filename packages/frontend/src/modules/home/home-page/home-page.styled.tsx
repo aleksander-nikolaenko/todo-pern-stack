@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
-import { SPACES, FONTS } from '../../theme';
+import { SPACES, FONTS, COLORS } from '../../theme';
 
 export const ButtonContainer = styled('div')`
   display: inline-flex;
@@ -19,6 +18,13 @@ export const PageContainer = styled('div')`
   transform: translate(-50%, -50%);
 `;
 
-export const Link = styled(NavLink)`
+export const Link = styled('a')`
   font-size: ${FONTS.SIZES.m};
+  text-decoration: underline;
+  color: ${COLORS.green};
+  cursor: pointer;
+  transition: color 0.3s;
+  &:hover {
+    color: ${COLORS.red};
+  }
 `;

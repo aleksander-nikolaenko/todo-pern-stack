@@ -5,7 +5,7 @@ import { InputComponent } from '../../../../common/components/input';
 import { ButtonComponent } from '../../../../common/components/button';
 import { ButtonToggleComponent } from '../../../../common/components/button-toggle';
 import { useValidationSchema } from './edit-form.validation-schema';
-import { Todo, UpdateTodo } from '../../../../common/types/todo.types';
+import { Todo, UpdateTodo } from '../../../../common/types';
 
 import * as Styled from './edit-form.styled';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { TodoItemComponent } from '../todo-item';
-import { Todo } from '../../../common/types/todo.types';
+import { Todo } from '../../../common/types';
 
 import * as Styled from './todo-list.styled';
 

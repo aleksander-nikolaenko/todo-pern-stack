@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDeleteTodo, useUpdateTodo } from '../../../../hooks';
 import { TitleComponent } from '../../../common/components/title';
 import { ButtonComponent } from '../../../common/components/button';
 import { ButtonToggleComponent } from '../../../common/components/button-toggle';
 import { Modal } from '../../../common/components/modal';
 import { TodoEditFormComponent } from '../todo-forms/edit-form';
-import { Todo } from '../../../common/types/todo.types';
+import { Todo } from '../../../common/types';
 
 import * as Styled from './todo-slide.styled';
+import { APP_KEYS } from '../../../common/consts';
 
 interface TodoSlideProps {
   data: Todo;
@@ -17,7 +18,6 @@ interface TodoSlideProps {
 
 export const TodoSlideComponent = ({ slide, data }: TodoSlideProps) => {
   const { id, title, description, isCompleted } = data;
-  const { url } = useRouteMatch();
   const history = useHistory();
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
   const [isModalOpenEdit, setIsModalOpenEdit] = useState(false);
@@ -34,7 +34,7 @@ export const TodoSlideComponent = ({ slide, data }: TodoSlideProps) => {
     setIsModalOpenEdit(false);
   };
   const handleClickView = () => {
-    history.push(`${url}/${id}`, { slide });
+    history.push(`${APP_KEYS.ROUTER_KEYS.TODO}/${id}`, { slide });
   };
   const handleClickEdit = () => {
     setIsModalOpenEdit(true);
