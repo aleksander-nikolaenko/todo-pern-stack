@@ -22,28 +22,32 @@ export const TodoSliderComponent = ({ data }: { data: Todo[] }) => {
   const handleChangeSlide = (swiper: SwiperClass) => {
     setSlide(swiper.realIndex + 1);
   };
-  return slide ? (
-    <Swiper
-      effect="coverflow"
-      grabCursor={!false}
-      centeredSlides={!false}
-      slidesPerView={1.5}
-      coverflowEffect={{
-        rotate: 50,
-        stretch: 20,
-        depth: 100,
-        modifier: 1,
-        slideShadows: false
-      }}
-      modules={[EffectCoverflow, A11y]}
-      initialSlide={slide - 1}
-      onSlideChange={handleChangeSlide}
-    >
-      {data.map((todo) => (
-        <SwiperSlide key={todo.id}>
-          <TodoSlideComponent slide={slide} data={todo} />
-        </SwiperSlide>
-      ))}
-    </Swiper>
-  ) : null;
+  return data.length !== 0 ? (
+    slide ? (
+      <Swiper
+        effect="coverflow"
+        grabCursor={!false}
+        centeredSlides={!false}
+        slidesPerView={1.5}
+        coverflowEffect={{
+          rotate: 50,
+          stretch: 20,
+          depth: 100,
+          modifier: 1,
+          slideShadows: false
+        }}
+        modules={[EffectCoverflow, A11y]}
+        initialSlide={slide - 1}
+        onSlideChange={handleChangeSlide}
+      >
+        {data.map((todo) => (
+          <SwiperSlide key={todo.id}>
+            <TodoSlideComponent slide={slide} data={todo} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    ) : null
+  ) : (
+    <p>Not found todos</p>
+  );
 };

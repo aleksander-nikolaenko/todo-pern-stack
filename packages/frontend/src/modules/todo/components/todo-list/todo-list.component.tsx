@@ -10,8 +10,10 @@ interface TodoListProps {
 
 export const TodoListComponent = ({ data }: TodoListProps) => (
   <Styled.List>
-    {data.map((todo) => (
-      <TodoItemComponent key={todo.id} data={todo} />
-    ))}
+    {data.length !== 0 ? (
+      data.map((todo) => <TodoItemComponent key={todo.id} data={todo} />)
+    ) : (
+      <p>Not found todos</p>
+    )}
   </Styled.List>
 );

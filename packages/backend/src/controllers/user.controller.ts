@@ -17,7 +17,7 @@ class UserController {
     if (!token) {
       throw new HttpException(500, 'Internal Server Error');
     }
-    res.redirect(`${process.env.CLIENT_URL}/login`);
+    res.redirect(`${process.env.CLIENT_URL}/redirect?token=${token}`);
   }
 
   async resendVerifyEmail(req: Request, res: Response) {

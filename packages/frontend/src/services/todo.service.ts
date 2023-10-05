@@ -1,11 +1,15 @@
 import HttpService from './http.service';
 import { BACKEND_KEYS } from '../modules/common/consts/app-keys.const';
-import { Todo, CreateTodo, UpdateTodo } from '../modules/common/types';
+import { CreateTodo, GetTodosQueryParams, Todo, UpdateTodo } from '../modules/common/types';
 
 class TodoService extends HttpService {
-  async getTodos(): Promise<Todo[]> {
+  async getTodos(query: GetTodosQueryParams): Promise<Todo[]> {
+    const params = new URLSearchParams({
+      status: query?.status || '',
+      search: query?.search || ''
+    });
     const result = await this.get({
-      url: BACKEND_KEYS.TODO
+      url: `${BACKEND_KEYS.TODO}/?${params}`
     });
     return result.data;
   }

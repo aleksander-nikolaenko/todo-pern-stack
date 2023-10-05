@@ -113,7 +113,7 @@ class EmailService {
                 background-color: #2b2b2b;
                 border-radius: 5px;
               "
-              href="${process.env.BASE_URL}/users/verify/${verificationToken}"
+              href="${process.env.BASE_URL}/api/user/verify/${verificationToken}"
               target="_blank"
             >
               Click here

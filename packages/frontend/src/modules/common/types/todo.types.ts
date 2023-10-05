@@ -9,3 +9,8 @@ export interface Todo {
 export type CreateTodo = Pick<Todo, 'title' | 'description' | 'isCompleted' | 'isPrivate'>;
 
 export type UpdateTodo = Partial<CreateTodo>;
+
+export interface GetTodosQueryParams {
+  search: string;
+  status: string;
+}

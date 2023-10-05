@@ -8,12 +8,20 @@ import { TodoTableComponent } from '../components/todo-table';
 import { AddTodoForm } from '../components/todo-forms/add-form';
 import { Modal } from '../../common/components/modal';
 import { BREAKPOINTS } from '../../theme';
+import { useSearchParams } from '../../../hooks/use-search-params.hook';
 
 import * as Styled from './todo-list-page.styled';
 
 export const TodoListPageComponent = () => {
-  const { status, data, error } = useGetTodos();
-  const dataSuccess = status === 'success' && !!data;
+  const { setSearchParams, getSearchParams } = useSearchParams();
+  const params = getSearchParams();
+  const { status, search } = params;
+
+  const { isError, isSuccess, isLoading, data, error } = useGetTodos({
+    status,
+    search
+  });
+  const dataSuccess = isSuccess && !!data;
   const { isDesktop, isTablet, isMobile } = useDevice({
     mobile: BREAKPOINTS.mobile,
     tablet: BREAKPOINTS.tablet,
@@ -31,12 +39,12 @@ export const TodoListPageComponent = () => {
 
   return (
     <MainLayoutComponent>
-      <FilterBarComponent />
+      <FilterBarComponent getQueryParams={getSearchParams} onChangeQueryParams={setSearchParams} />
       <Styled.ButtonAdd type="button" onClick={handleClickAddTodo}>
         Add Todo
       </Styled.ButtonAdd>
-      {status === 'loading' && <Styled.Loader />}
-      {status === 'error' && (
+      {isLoading && <Styled.Loader />}
+      {isError && (
         <Styled.ErrorText $size="m">
           Error: {error instanceof Error ? error.message : error}
         </Styled.ErrorText>

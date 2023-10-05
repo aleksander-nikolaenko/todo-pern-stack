@@ -28,5 +28,6 @@ export const ROUTER_KEYS = {
   LOGIN: '/login',
   REGISTER: '/register',
   PROFILE: '/profile',
-  TODO: '/todos'
+  TODO: '/todos',
+  REDIRECT: '/redirect'
 };

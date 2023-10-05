@@ -11,6 +11,7 @@ import { useGetUser } from '../../hooks';
 import { Loader } from '../register/components/register-forms/register-form-component';
 import { PageContainer } from '../home/home-page';
 import ProfilePageContainer from '../profile';
+import RedirectPageContainer from '../redirect';
 
 export const MainRouter = () => {
   const { isLoading, data } = useGetUser();
@@ -55,6 +56,10 @@ export const MainRouter = () => {
           <ProtectedRoute isAuth={isAuth}>
             <TodosPageContainer />
           </ProtectedRoute>
+        </Route>
+
+        <Route path={APP_KEYS.ROUTER_KEYS.REDIRECT}>
+          <RedirectPageContainer />
         </Route>
 
         <Redirect to={APP_KEYS.ROUTER_KEYS.ROOT} />
