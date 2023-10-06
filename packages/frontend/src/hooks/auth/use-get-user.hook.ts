@@ -14,5 +14,6 @@ export const useGetUser = () =>
     },
     onError: () => {
       localStorage.setItem(APP_KEYS.STORAGE_KEYS.USER_ID, '');
+      localStorage.setItem(APP_KEYS.STORAGE_KEYS.TOKEN, '');
     }
   });

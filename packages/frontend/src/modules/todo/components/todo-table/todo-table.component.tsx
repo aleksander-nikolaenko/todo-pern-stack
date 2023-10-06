@@ -4,8 +4,12 @@ import { Todo } from '../../../common/types';
 
 import * as Styled from './todo-table.styled';
 
-export const TodoTableComponent = ({ data }: { data: Todo[] }) => {
-  const isData = data.length !== 0;
+interface TodoTableProps {
+  data: Todo[] | undefined;
+}
+
+export const TodoTableComponent = ({ data }: TodoTableProps) => {
+  const isData = data?.length !== 0;
   return isData ? (
     <Styled.Table>
       <thead>
@@ -17,7 +21,7 @@ export const TodoTableComponent = ({ data }: { data: Todo[] }) => {
       </thead>
 
       <tbody>
-        {data.map((rowData) => (
+        {data?.map((rowData) => (
           <Styled.BodyRow key={rowData.id}>
             <Styled.BodyCol>{rowData.title}</Styled.BodyCol>
             <Styled.BodyCol>{rowData.description}</Styled.BodyCol>

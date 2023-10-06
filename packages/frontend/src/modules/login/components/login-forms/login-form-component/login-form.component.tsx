@@ -80,7 +80,6 @@ export const LoginFormComponent = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={email}
-              autoComplete="email"
             />
             {touched.email && errors.email && (
               <Styled.ErrorText $size="m">{errors.email}</Styled.ErrorText>
@@ -96,7 +95,6 @@ export const LoginFormComponent = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={password}
-              autoComplete="new-password"
             />
             {touched.password && errors.password && (
               <Styled.ErrorText $size="m">{errors.password}</Styled.ErrorText>

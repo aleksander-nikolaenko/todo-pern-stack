@@ -8,7 +8,12 @@ import { Todo } from '../../../common/types';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 
-export const TodoSliderComponent = ({ data }: { data: Todo[] }) => {
+interface TodoSliderProps {
+  data: Todo[] | undefined;
+  onLoadMore: () => void;
+}
+
+export const TodoSliderComponent = ({ onLoadMore, data }: TodoSliderProps) => {
   const [slide, setSlide] = useState<number>(0);
   const { state } = useLocation<{ slide: number }>();
 
@@ -22,7 +27,12 @@ export const TodoSliderComponent = ({ data }: { data: Todo[] }) => {
   const handleChangeSlide = (swiper: SwiperClass) => {
     setSlide(swiper.realIndex + 1);
   };
-  return data.length !== 0 ? (
+
+  const handleLoadMore = () => {
+    onLoadMore();
+  };
+
+  return data?.length !== 0 ? (
     slide ? (
       <Swiper
         effect="coverflow"
@@ -39,8 +49,9 @@ export const TodoSliderComponent = ({ data }: { data: Todo[] }) => {
         modules={[EffectCoverflow, A11y]}
         initialSlide={slide - 1}
         onSlideChange={handleChangeSlide}
+        onReachEnd={handleLoadMore}
       >
-        {data.map((todo) => (
+        {data?.map((todo) => (
           <SwiperSlide key={todo.id}>
             <TodoSlideComponent slide={slide} data={todo} />
           </SwiperSlide>

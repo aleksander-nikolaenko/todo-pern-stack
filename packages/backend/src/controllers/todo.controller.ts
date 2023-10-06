@@ -3,14 +3,14 @@ import { User } from '../entities/user.entity';
 import { Todo } from '../entities/todo.entity';
 import TodoService from '../services/todo.service';
 import HttpException from '../exceptions/http.exception';
-import { GetTodoQuery } from '../types/todos.type';
+import { GetTodosQuery } from '../types/todos.type';
 
 export class TodoController {
   constructor(private todoService: TodoService) {}
 
   async getAllTodo(req: Request, res: Response) {
     const user = req.user as Pick<User, 'id' | 'email'>;
-    const query = req.query as GetTodoQuery;
+    const query = req.query as GetTodosQuery;
     const todos = await this.todoService.getAllTodos(user.id, query);
     res.send(todos);
   }

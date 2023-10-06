@@ -7,6 +7,7 @@ export const STORAGE_KEYS = {
 // React-query keys
 export const QUERY_KEYS = {
   TODOS: 'todos',
+  INFINITE_TODOS: 'infinite-todos',
   TODO: 'todo',
   USER: 'user'
 };

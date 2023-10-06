@@ -70,7 +70,7 @@ export const ChangePasswordFormComponent = () => {
       <Styled.FormWrapper>
         <Styled.Form onSubmit={handleSubmit}>
           <Styled.FormField>
-            <Styled.Label htmlFor="email"> Email*</Styled.Label>
+            <Styled.Label htmlFor="email"> Email</Styled.Label>
             <InputComponent
               type="text"
               name="email"
@@ -78,6 +78,7 @@ export const ChangePasswordFormComponent = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={email}
+              disabled
               autoComplete="email"
             />
             {touched.email && errors.email && (

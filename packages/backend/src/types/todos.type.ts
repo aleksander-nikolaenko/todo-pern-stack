@@ -1,16 +1,18 @@
-import { User } from '../entities/user.entity';
+import { Todo } from '../entities/todo.entity';
 
-export interface Todo {
-  id: string;
-  title: string;
-  description: string;
-  isCompleted: boolean;
-  isPrivate: boolean;
-  isAuth: boolean;
-  user: User;
+export interface GetTodosQuery {
+  search?: string;
+  status?: string;
+  page?: string;
+  limit?: string;
 }
 
-export interface GetTodoQuery {
-  search?: string | undefined;
-  status?: string | undefined;
+export interface Pagination {
+  totalTodos: number;
+  totalPages: number;
+}
+
+export interface GetTodosResponse {
+  todos: Todo[];
+  pagination: Pagination;
 }

@@ -5,13 +5,13 @@ import { Todo } from '../../../common/types';
 import * as Styled from './todo-list.styled';
 
 interface TodoListProps {
-  data: Todo[];
+  data: Todo[] | undefined;
 }
 
 export const TodoListComponent = ({ data }: TodoListProps) => (
   <Styled.List>
-    {data.length !== 0 ? (
-      data.map((todo) => <TodoItemComponent key={todo.id} data={todo} />)
+    {data?.length !== 0 ? (
+      data?.map((todo) => <TodoItemComponent key={todo.id} data={todo} />)
     ) : (
       <p>Not found todos</p>
     )}

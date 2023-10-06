@@ -4,11 +4,11 @@ import { QUERY_KEYS } from '../../modules/common/consts/app-keys.const';
 import { GetTodosQueryParams } from '../../modules/common/types';
 
 export function useGetTodos(queryParams: GetTodosQueryParams) {
-  const { status, search } = queryParams;
+  const { status, search, page, limit } = queryParams;
   return useQuery({
-    queryKey: [QUERY_KEYS.TODOS, status, search],
+    queryKey: [QUERY_KEYS.TODOS, status, search, page, limit],
     queryFn: async () => {
-      const result = await todoService.getTodos({ status, search });
+      const result = await todoService.getTodos({ status, search, page, limit });
       return result;
     }
   });
