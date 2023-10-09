@@ -17,6 +17,7 @@ export const useUpdateTodo = () => {
       await todoService.updateTodo(todoId, todo);
     },
     onSuccess: () => {
+      queryClient.invalidateQueries(QUERY_KEYS.INFINITE_TODOS);
       queryClient.invalidateQueries(QUERY_KEYS.TODOS);
       queryClient.invalidateQueries(QUERY_KEYS.TODO);
     }

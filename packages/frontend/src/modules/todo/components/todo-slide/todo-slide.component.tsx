@@ -57,7 +57,7 @@ export const TodoSlideComponent = ({ slide, data }: TodoSlideProps) => {
           <ButtonComponent onClick={handleClickDelete}>Delete</ButtonComponent>
           <ButtonToggleComponent
             name={`${data.id}-c`}
-            value={isCompleted}
+            checked={isCompleted}
             onChange={handleClickUpdateCompleted}
           />
         </Styled.ButtonWrapper>

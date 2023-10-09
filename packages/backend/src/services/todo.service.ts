@@ -77,7 +77,7 @@ export default class TodoService {
   }
 
   async getTodoById(id: string) {
-    const result = await Todo.findOneBy({ id });
+    const result = await Todo.findOne({ where: { id }, relations: ['user'] });
     return result;
   }
 

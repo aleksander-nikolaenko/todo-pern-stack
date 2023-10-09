@@ -39,8 +39,14 @@ export const AddTodoForm = ({ onCancel }: AddTodoFormProps) => {
     dirty,
     handleBlur,
     handleChange,
-    handleSubmit
+    handleSubmit,
+    setFieldValue
   } = formik;
+
+  const handleChangeToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked: value } = event.target;
+    setFieldValue(name, value);
+  };
 
   return (
     <Styled.FormWrapper>
@@ -96,15 +102,19 @@ export const AddTodoForm = ({ onCancel }: AddTodoFormProps) => {
                 <Styled.ToggleLabel>Completed</Styled.ToggleLabel>
                 <ButtonToggleComponent
                   name="isCompleted"
-                  value={isCompleted}
-                  onChange={handleChange}
+                  checked={isCompleted}
+                  onChange={handleChangeToggle}
                 />
               </Styled.ToggleWrapper>
             </Styled.FormField>
             <Styled.FormField>
               <Styled.ToggleWrapper>
                 <Styled.ToggleLabel>Private</Styled.ToggleLabel>
-                <ButtonToggleComponent name="isPrivate" value={isPrivate} onChange={handleChange} />
+                <ButtonToggleComponent
+                  name="isPrivate"
+                  checked={isPrivate}
+                  onChange={handleChangeToggle}
+                />
               </Styled.ToggleWrapper>
             </Styled.FormField>
             <Styled.ButtonWrapper>

@@ -1,5 +1,5 @@
 {
-  "name": "cgs-team-boilerplate",
+  "name": "todo-pern-stack",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -8,8 +8,6 @@
     "packages/*"
   ],
   "scripts": {
-    "configure:hooks": "yarn && chmod +x ./hooks/setup-hooks && ./hooks/setup-hooks",
-    "configure:hooks:windows": "yarn && bash hooks/setup-hooks",
     "start": "yarn && lerna run --parallel start",
     "lint:fix": "npx eslint packages/**/*.ts packages/**/*.tsx --fix"
   },

@@ -12,6 +12,7 @@ export const useDeleteTodo = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEYS.TODOS);
+      queryClient.invalidateQueries(QUERY_KEYS.INFINITE_TODOS);
     }
   });
 };

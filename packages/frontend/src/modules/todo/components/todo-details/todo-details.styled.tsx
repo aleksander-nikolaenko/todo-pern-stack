@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BREAKPOINTS, FONTS, SPACES } from '../../../theme';
+import { BREAKPOINTS, COLORS, FONTS, SPACES } from '../../../theme';
 import { Title } from '../../../common/components/title';
 
 export const SubTitle = styled('h3')`
@@ -45,4 +45,9 @@ export const ModalWrapper = styled('div')`
 export const ModalTitle = styled(Title)`
   text-align: center;
   margin-bottom: ${SPACES.m};
+`;
+export const ErrorText = styled(Title)`
+  text-align: center;
+  margin-bottom: ${SPACES.m};
+  color: ${COLORS.red};
 `;

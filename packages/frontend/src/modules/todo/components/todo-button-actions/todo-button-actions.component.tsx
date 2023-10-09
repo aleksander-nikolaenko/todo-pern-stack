@@ -16,6 +16,7 @@ interface TodoButtonActionsProps {
 
 export const TodoButtonActionsComponent = ({ data }: TodoButtonActionsProps) => {
   const { id, isCompleted } = data;
+  const userId = localStorage.getItem(APP_KEYS.STORAGE_KEYS.USER_ID);
   const history = useHistory();
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
   const [isModalOpenEdit, setIsModalOpenEdit] = useState(false);
@@ -54,11 +55,16 @@ export const TodoButtonActionsComponent = ({ data }: TodoButtonActionsProps) => 
     <>
       <Styled.ButtonWrapper>
         <ButtonComponent onClick={handleClickView}>View</ButtonComponent>
-        <ButtonComponent onClick={handleClickEdit}>Edit</ButtonComponent>
-        <ButtonComponent onClick={handleClickDelete}>Delete</ButtonComponent>
+        <ButtonComponent disabled={userId !== data.user.id} onClick={handleClickEdit}>
+          Edit
+        </ButtonComponent>
+        <ButtonComponent disabled={userId !== data.user.id} onClick={handleClickDelete}>
+          Delete
+        </ButtonComponent>
         <ButtonToggleComponent
           name={`${data.id}-c`}
-          value={isCompleted}
+          checked={isCompleted}
+          disabled={userId !== data.user.id}
           onChange={handleClickUpdateCompleted}
         />
       </Styled.ButtonWrapper>

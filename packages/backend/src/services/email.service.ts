@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import { v4 as uuid } from 'uuid';
+import HttpException from '../exceptions/http.exception';
 
 interface EmailConfig {
   host: string;
@@ -147,6 +148,7 @@ class EmailService {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
+      throw new HttpException(500, 'Server error email not sent');
     }
   }
 
@@ -247,6 +249,7 @@ class EmailService {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
+      throw new HttpException(500, 'Server error email not sent');
     }
   }
 }

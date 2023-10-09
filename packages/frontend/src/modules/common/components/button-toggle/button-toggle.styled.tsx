@@ -44,7 +44,7 @@ export const Slider = styled.span<{ isActive: boolean | undefined }>`
   }
 `;
 
-export const CheckboxInput = styled.input.attrs({ type: 'checkbox' })`
+export const CheckboxInput = styled.input`
   display: none;
 
   &:checked + ${Slider} {

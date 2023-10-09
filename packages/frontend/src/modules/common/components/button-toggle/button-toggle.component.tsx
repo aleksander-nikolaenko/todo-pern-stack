@@ -1,15 +1,11 @@
 import React from 'react';
 import * as Styled from './button-toggle.styled';
 
-interface ButtonToggleProps {
-  name?: string;
-  value?: boolean | undefined;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+interface ButtonToggleProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-export const ButtonToggleComponent = ({ name, value, onChange }: ButtonToggleProps) => (
-  <Styled.ToggleSwitchContainer htmlFor={name}>
-    <Styled.CheckboxInput id={name} name={name} checked={value} onChange={onChange} />
-    <Styled.Slider isActive={value} />
+export const ButtonToggleComponent = ({ type, id, ...rest }: ButtonToggleProps) => (
+  <Styled.ToggleSwitchContainer htmlFor={rest.name}>
+    <Styled.CheckboxInput id={rest.name} type="checkbox" {...rest} />
+    <Styled.Slider isActive={rest.checked} />
   </Styled.ToggleSwitchContainer>
 );

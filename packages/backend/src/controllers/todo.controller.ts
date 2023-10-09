@@ -32,19 +32,31 @@ export class TodoController {
   }
 
   async deleteTodoById(req: Request, res: Response) {
+    const { id: userId } = req.user as Pick<User, 'id' | 'email'>;
     const { id } = req.params;
-    const todo = await this.todoService.deleteTodoById(id);
-    if (!todo) {
+    const todo = await this.todoService.getTodoById(id);
+    if (todo?.user.id !== userId) {
+      throw new HttpException(403, 'You don`t have permission to do this action');
+    }
+
+    const result = await this.todoService.deleteTodoById(id);
+    if (!result) {
       throw new HttpException(404, `Requested todo with id ${id} not found`);
     }
     res.status(204).send();
   }
 
   async updateTodoById(req: Request, res: Response) {
+    const { id: userId } = req.user as Pick<User, 'id' | 'email'>;
     const dto: Todo = req.body;
     const { id } = req.params;
-    const todo = await this.todoService.updateTodoById(id, dto);
-    res.send(todo);
+    const todo = await this.todoService.getTodoById(id);
+    if (todo?.user.id !== userId) {
+      throw new HttpException(403, 'You don`t have permission to do this action');
+    }
+
+    const result = await this.todoService.updateTodoById(id, dto);
+    res.send(result);
   }
 }
 

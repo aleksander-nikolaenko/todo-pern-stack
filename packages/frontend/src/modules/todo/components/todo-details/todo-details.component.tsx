@@ -12,6 +12,7 @@ import { Todo } from '../../../common/types';
 import * as Styled from './todo-details.styled';
 
 export const TodoDetailsComponent = ({ data }: { data: Todo }) => {
+  const userId = localStorage.getItem(APP_KEYS.STORAGE_KEYS.USER_ID);
   const { id, title, description, isCompleted, isPrivate } = data;
   const history = useHistory();
   const { state } = useLocation<{ slide: number }>();
@@ -27,7 +28,9 @@ export const TodoDetailsComponent = ({ data }: { data: Todo }) => {
   const handleClickEdit = () => {
     setIsModalOpenEdit(true);
   };
+
   const { isError: updateError, mutate: updateMutation } = useUpdateTodo();
+
   const handleClickUpdateCompleted = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateMutation({ todoId: id, todo: { isCompleted: event.target.checked } });
   };
@@ -40,6 +43,9 @@ export const TodoDetailsComponent = ({ data }: { data: Todo }) => {
 
   return (
     <>
+      {userId !== data.user.id && (
+        <Styled.ErrorText $size="m">Not available for changes</Styled.ErrorText>
+      )}
       <TitleComponent size="xl" title={title} />
       <Styled.SubTitleDescription>Description:</Styled.SubTitleDescription>
       <Styled.Description>{description}</Styled.Description>
@@ -47,7 +53,8 @@ export const TodoDetailsComponent = ({ data }: { data: Todo }) => {
         <Styled.SubTitle>Completed</Styled.SubTitle>
         <ButtonToggleComponent
           name={`${id}-c`}
-          value={isCompleted}
+          checked={isCompleted}
+          disabled={userId !== data.user.id}
           onChange={handleClickUpdateCompleted}
         />
       </Styled.ButtonWrapper>
@@ -55,13 +62,16 @@ export const TodoDetailsComponent = ({ data }: { data: Todo }) => {
         <Styled.SubTitle>Private</Styled.SubTitle>
         <ButtonToggleComponent
           name={`${id}-p`}
-          value={isPrivate}
+          checked={isPrivate}
+          disabled={userId !== data.user.id}
           onChange={handleClickUpdateCompPrivate}
         />
       </Styled.ButtonWrapperPrivate>
       <Styled.ButtonWrapperEdit>
         <ButtonComponent onClick={handleClickBack}>Back</ButtonComponent>
-        <ButtonComponent onClick={handleClickEdit}>Edit</ButtonComponent>
+        <ButtonComponent disabled={userId !== data.user.id} onClick={handleClickEdit}>
+          Edit
+        </ButtonComponent>
       </Styled.ButtonWrapperEdit>
       <Modal isOpen={isModalOpenEdit} onClose={closeModal} isClose>
         {updateError ? (
