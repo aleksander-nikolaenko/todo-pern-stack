@@ -5,20 +5,25 @@ import HttpException from '../exceptions/http.exception';
 
 const auth =
   ({ omit }: { omit: boolean }) =>
-  (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
-      passport.authenticate('jwt', { session: false }, (err: Error, user: User) => {
-        if (err) {
-          throw new HttpException(400, err.message);
-        }
+      await new Promise<void>((resolve, reject) => {
+        passport.authenticate('jwt', { session: false }, (err: Error, user: User) => {
+          if (err) {
+            reject(new HttpException(400, err.message));
+            return;
+          }
 
-        if (!omit && !user) {
-          throw new HttpException(401, 'Not authorized');
-        }
+          if (!omit && !user) {
+            reject(new HttpException(401, 'Not authorized'));
+            return;
+          }
 
-        req.user = { id: user.id, email: user.email } as Pick<User, 'id' | 'email'>;
-        next();
-      })(req, res, next);
+          req.user = { id: user.id, email: user.email } as Pick<User, 'id' | 'email'>;
+          resolve();
+        })(req, res, next);
+      });
+      next();
     } catch (error) {
       next(error);
     }

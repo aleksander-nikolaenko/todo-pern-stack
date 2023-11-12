@@ -26,7 +26,7 @@ export const RegisterFormComponent = () => {
     validationSchema,
     onSubmit: async (values) => {
       mutate(values);
-      setIsModalOpen(true);
+      if (isError) setIsModalOpen(true);
     }
   });
 

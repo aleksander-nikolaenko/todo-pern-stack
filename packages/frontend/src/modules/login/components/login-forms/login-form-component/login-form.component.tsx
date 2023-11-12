@@ -32,7 +32,7 @@ export const LoginFormComponent = () => {
     validationSchema,
     onSubmit: async (values) => {
       mutate(values);
-      setIsModalOpen(true);
+      if (isError) setIsModalOpen(true);
     }
   });
 
@@ -54,7 +54,7 @@ export const LoginFormComponent = () => {
 
   const handleClickResendVerifyEmail = () => {
     mutateVerify({ email });
-    setIsModalOpenVerify(true);
+    if (isErrorVerify) setIsModalOpenVerify(true);
   };
 
   const handleClickBack = () => {

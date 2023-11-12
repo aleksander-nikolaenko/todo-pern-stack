@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDeleteTodo, useUpdateTodo } from '../../../../hooks';
 import { ButtonComponent } from '../../../common/components/button';
@@ -46,10 +46,10 @@ export const TodoButtonActionsComponent = ({ data }: TodoButtonActionsProps) => 
     setIsModalOpenDelete(false);
   };
 
-  useEffect(() => {
-    if (deleteError) setIsModalOpenDelete(true);
-    if (updateError) setIsModalOpenEdit(true);
-  }, [deleteError, updateError]);
+  // useEffect(() => {
+  //   if (deleteError) setIsModalOpenDelete(true);
+  //   if (updateError) setIsModalOpenEdit(true);
+  // }, [deleteError, updateError]);
 
   return (
     <>

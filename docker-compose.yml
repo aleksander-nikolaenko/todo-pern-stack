@@ -1,0 +1,35 @@
+version: "3"
+services:
+  frontend:
+    container_name: todo-frontend
+    build:
+      context: ./packages/frontend
+    ports:
+      - '3000:3000'
+    environment:
+      - REACT_APP_SERVER_URL=https://cgs-backend.onrender.com
+
+
+  backend:
+    container_name: todo-backend
+    build:
+      context: ./packages/backend
+    depends_on:
+      - postgres
+    # ports:
+    #   - '4200:4200'
+    environment:
+      - BASE_URL= https://cgs-backend.onrender.com
+      - CLIENT_URL=http://localhost:3000
+
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    # ports:
+    #   - '5433:5432'
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=cgs_camp
+
+

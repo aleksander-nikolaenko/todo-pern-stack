@@ -34,7 +34,7 @@ export const ChangePasswordFormComponent = () => {
     validationSchema,
     onSubmit: async (values, helpers) => {
       mutate(values);
-      setIsModalOpen(true);
+      if (isErrorPassword) setIsModalOpen(true);
       helpers.resetForm();
     }
   });

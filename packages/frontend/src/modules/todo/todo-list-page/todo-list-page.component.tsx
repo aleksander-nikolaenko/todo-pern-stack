@@ -39,6 +39,7 @@ export const TodoListPageComponent = () => {
     limit
   });
   const dataSuccess = isSuccess && !!data.todos;
+  const isShowLoader = isLoading || isFetching;
   const { isDesktop, isTablet, isMobile } = useDevice({
     mobile: BREAKPOINTS.mobile,
     tablet: BREAKPOINTS.tablet,
@@ -97,7 +98,7 @@ export const TodoListPageComponent = () => {
       <Styled.ButtonAdd type="button" onClick={handleClickAddTodo}>
         Add Todo
       </Styled.ButtonAdd>
-      {isLoading && <Styled.Loader />}
+      {isShowLoader && <Styled.Loader />}
 
       {isError && (
         <Styled.ErrorText $size="m">
@@ -105,13 +106,13 @@ export const TodoListPageComponent = () => {
         </Styled.ErrorText>
       )}
 
-      {dataSuccess && isMobile && <TodoListComponent data={infiniteData} />}
-      {dataSuccess && isTablet && (
+      {dataSuccess && isMobile && !isShowLoader && <TodoListComponent data={infiniteData} />}
+      {dataSuccess && isTablet && !isShowLoader && (
         <TodoSliderComponent onLoadMore={handleLoadMore} data={infiniteData} />
       )}
-      {dataSuccess && isDesktop && <TodoTableComponent data={data?.todos} />}
+      {dataSuccess && isDesktop && !isShowLoader && <TodoTableComponent data={data?.todos} />}
 
-      {!isLoading && isDesktop && dataSuccess && (
+      {!isLoading && isDesktop && dataSuccess && data?.todos.length !== 0 && !isShowLoader && (
         <Styled.Pagination>
           <ReactPaginate
             forcePage={+currentPage - 1}
@@ -133,8 +134,6 @@ export const TodoListPageComponent = () => {
           Load More
         </Styled.ButtonLoadMore>
       )}
-
-      {isFetching && <Styled.Loader />}
 
       <Modal isOpen={isModalOpen} onClose={closeModal} isClose>
         <AddTodoForm onCancel={closeModal} />

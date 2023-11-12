@@ -30,16 +30,13 @@ export const Modal = ({ isOpen, onClose, isClose, children }: ModalProps) => {
     }
   };
   if (!isOpen) return null;
-  return (
-    isOpen &&
-    ReactDOM.createPortal(
-      <Styled.Backdrop onClick={handleBackdropClick}>
-        <Styled.Content>
-          {isClose && <Styled.CloseButton type="button" onClick={onClose} />}
-          {children}
-        </Styled.Content>
-      </Styled.Backdrop>,
-      document.getElementById('modal-root') || document.body
-    )
+  return ReactDOM.createPortal(
+    <Styled.Backdrop onClick={handleBackdropClick}>
+      <Styled.Content>
+        {isClose && <Styled.CloseButton type="button" onClick={onClose} />}
+        {children}
+      </Styled.Content>
+    </Styled.Backdrop>,
+    document.getElementById('modal-root') || document.body
   );
 };

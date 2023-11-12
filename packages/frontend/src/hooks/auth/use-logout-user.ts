@@ -11,6 +11,8 @@ export const useLogoutUser = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(APP_KEYS.QUERY_KEYS.USER);
+      localStorage.setItem(APP_KEYS.STORAGE_KEYS.USER_ID, '');
+      localStorage.setItem(APP_KEYS.STORAGE_KEYS.TOKEN, '');
     }
   });
 };
